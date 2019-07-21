@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoardDAO {
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -75,6 +77,40 @@ public class BoardDAO {
 			e.printStackTrace();
 		} finally {
 			close(con, ps, null);
+		}
+		return result;
+	}
+	
+	public static List<BoardVO> selectAll() {
+		List<BoardVO> result = new ArrayList();
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " SELECT * FROM t_board ";
+		
+		try {
+			con = getCon();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				int i = rs.getInt("i");
+				String title = rs.getString("title");
+				String content = rs.getString("content");
+				
+				BoardVO vo = new BoardVO();
+				vo.setI(i);
+				vo.setTitle(title);
+				vo.setContent(content);
+				
+				result.add(vo);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
 		}
 		return result;
 	}

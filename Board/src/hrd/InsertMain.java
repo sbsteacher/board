@@ -2,8 +2,8 @@ package hrd;
 
 public class InsertMain {
 	public static void main(String[] args) {
-		String title = "하하하하"; //제목
-		String content = "121212"; //내용
+		String title = "zxcvzs222"; //제목
+		String content = "1dsdfsdf21212333"; //내용
 		
 		BoardVO vo = new BoardVO();
 		vo.setTitle(title);
